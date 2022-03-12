@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>moon firm</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/responsive.css')}}">
+    <!-- fevicon -->
+    <link rel="icon" href="{{url_for('static',filename='images/fevicon.png',type='image/gif')}}" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/jquery.mCustomScrollbar.min.css')}}">
+    <!-- Tweaks for older IEs-->
+	
+	
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    
+	 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+	<!--table> table <!-->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<!-- body -->
+
+<body class="main-layout ">
+    <!-- loader  -->
+    <div class="loader_bg">
+        <div class="loader"><img src="{{url_for('static',filename='images/loading.gif')}}" alt="#" /></div>
+    </div>
+    <!-- end loader -->
+    <!-- header -->
+  
+    <!-- end header -->
+    <section class="slider_section">
+        <div id="myCarousel" class="carousel slide banner-main" data-ride="carousel">
+            
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="first-slide" src="{{url_for('static',filename='images/banner.jpg',type='image/gif')}}" alt="First slide">
+                    <div class="container">
+                        <div class="carousel-caption relative">
+                            <h1>Irrigate</h1>
+                            <span>Predict time to irrigate</span>
+
+                            <p>Note : the file must be csv with columns: ['S No', 'pH', 'Temperature', 'Moisture', 'Time_log', 'Gadget Id', 'Location'] with
+                             case sensitive, once predicted click download button to get the predicted csv file
+                             , Target class ['no_irrigation', 'irrigate']
+                            </p>
+							
+                            <form action="{{url_for('home')}}" method="post" enctype="multipart/form-data">
+							<input style="font-size:18px;" type="file"  name="file" accept=".csv" required/>
+							<br><br><input type="submit" class="buynow ggg" />
+							</form>
+                            {% if trigger == 1 %}
+                            <div style="float:right">
+                                <form action="{{url_for('download')}}" method="post">
+                                <button type="submit" class="buynow ggg">Download</button>
+                                </form>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- about -->
+    <div id="about" class="about">
+        <div class="container">
+            {% if trigger == 1 %}
+			
+			<table id="tableID" class="display">
+        <thead>
+             <tr>
+                          <th>
+                            Index
+                          </th>
+                          {% for i in cols %}
+                          <th>
+                            {{i}}
+                          </th>
+                           {% endfor %}
+                        </tr>
+        </thead>
+          
+        <tbody>
+
+                        {% for i in range (len) %}
+                        <tr>
+                          <td>
+                            <b>{{i+1}}</b>
+                          </td>
+                           {% for j in cols %}
+
+                          <td>
+
+                            {{data[j][i]}}
+
+                          </td>
+                          {% endfor %}
+
+                        </tr>
+                        {% endfor %}
+        </tbody>
+    </table>
+      {% else %}
+            <h6>No data Found</h6>
+
+      {% endif %}
+        </div>
+		
+    </div>
+	
+    <!-- end about -->
+    <!-- for_box -->
+    <
+
+   
+    <!-- end contact -->
+
+    <!-- footer -->
+    <!--  footer -->
+    
+     
+        <div class="copyright">
+            <div class="container">
+                <p>© 2022 All Rights Reserved.</p>
+           
+        </div>
+        </div>
+    </footr>
+
+    <!-- end footer -->
+    <!-- Javascript files-->
+	
+	
+    <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/popper.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/jquery-3.0.0.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/plugin.js')}}"></script>
+    <!-- sidebar -->
+    <script src="{{url_for('static',filename='js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/custom.js')}}"></script>
+    <!-- javascript -->
+    <script src="{{url_for('static',filename='js/owl.carousel.js')}}"></script>
+	
+	<script type="text/javascript" 
+        src="https://code.jquery.com/jquery-3.5.1.js">
+    </script>
+	 <script src=
+"https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
+    </script>
+
+    {% if trigger == -1 %}
+    <script>
+    alert("Columns not matched please upload with correct column value");
+    </script>
+    {% endif %}
+
+    <script>
+  
+        // Initialize the DataTable
+        $(document).ready(function () {
+            $('#tableID').DataTable({
+  
+                // Enable the searching
+                // of the DataTable
+                searching: true
+            });
+        });
+    </script>
+
+    
+    <!-- google map js -->
+    
+    <!-- end google map js -->
+</body>
+
+</html>
